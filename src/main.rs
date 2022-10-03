@@ -24,11 +24,8 @@ fn main() {
         }
 
         match check{
-            //Negative numbers are debug stuff, but -1 is "idle"
-           //This one goes to the rusty menu
-           /*-2 => {
-                continue;
-           }*/
+        //Negative numbers are debug stuff, but -1 is "idle"
+
            -2 => check = profiles::functions::db_show_profiles(&players),
 
             0 => {
@@ -40,7 +37,8 @@ fn main() {
 
             //11 => change username
             12 => {
-                check = profiles::menus::create_user_menu(&mut players);
+                profiles::menus::create_user_menu(&mut players);
+                check = rusty_numbers::menu::rusty_numbers_menu();
                 continue;
             }
 

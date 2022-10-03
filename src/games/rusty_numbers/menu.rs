@@ -1,8 +1,10 @@
 use crate::general_libraries;
 use std::io::Write;
 use super::diffs;
+use super::random_game;
 
 pub fn rusty_numbers_menu() -> i32{
+    let mut check:i32 = -1;
     let mut actual_index:usize = 1;
     
     let mut difficulties:Vec <diffs::Difficulty> = Vec::new();
@@ -12,38 +14,32 @@ pub fn rusty_numbers_menu() -> i32{
     
     //print the user data at the right of the menu
     loop{
-        std::io::stdout().flush().expect("Failed to flush");
-        general_libraries::repeater('╔','═','╗',74);       
-        print!("\n");
-        println!("║\t\t  Welcome to \"Guess the rusty number\"!!\t\t\t║");
-        println!("║\t\t\tWhat would you like to do?\t\t\t║");
-        println!("║\t\t\t\t\t\t\t\t\t║");
-        println!("║ 1. I just want to play the game!\t\t\t\t\t║");
-        println!("║ 2. I want to change the current difficulty ({})\t\t\t║", actual_diff.name);
-        println!("║ 3. I want to switch my profile.\t\t\t\t\t║");
-        println!("║ 4. I want to change my username!\t\t\t\t\t║");
-        println!("║ 5. I want to see the ranks.\t\t\t\t\t\t║");
-        println!("║ 6. I want to create a new profile!\t\t\t\t\t║");
-        println!("║ 7. I want to go back to the main menu!!!\t\t\t\t║");
-        println!("║ 8. I want exit this damn thing!!!\t\t\t\t\t║");
-        general_libraries::repeater('╚','═','╝',74);
-        print!("\n--> ");
+        if check != -1 {
+            check = general_libraries::atoi();
+        }
 
-        match general_libraries::atoi(){
+        match check{
+
             -3 => {
                 diffs::show_diff_array(&difficulties);
                 continue;
             },
 
-           -2 => return -2,
+            -2 => return -2,
+
+            -1 => {
+                rusty_welcome(actual_diff);
+                check = -10;
+            },
 
             0 => continue,
 
-            //1 => check = random_game::guess_the_rusty_number(actual_diff),
+            1 => check = random_game::guess_the_rusty_number(actual_diff),
 
             2 => {
                 actual_index = change_diff_menu(&difficulties, actual_index);
                 actual_diff = &difficulties[actual_index];
+                check = -1;
                 continue;
             }
 
@@ -53,7 +49,7 @@ pub fn rusty_numbers_menu() -> i32{
 
             //5 => show game ranks
 
-            6 => return 12,            
+            6 => return 12,
 
             7 => return 0,
 
@@ -99,4 +95,26 @@ pub fn change_diff_menu(v:&Vec <diffs::Difficulty>, actual_diff:usize) -> usize{
     }
 
     return new_diff;
+}
+
+pub fn rusty_welcome(actual_diff: & diffs::Difficulty){
+        std::io::stdout().flush().expect("Failed to flush");
+        general_libraries::repeater('╔','═','╗',74);       
+        print!("\n");
+        println!("║\t\t  Welcome to \"Guess the rusty number\"!!\t\t\t║");
+        println!("║\t\t\tWhat would you like to do?\t\t\t║");
+        println!("║\t\t\t\t\t\t\t\t\t║");
+        println!("║ -3. Show difficulties\t\t\t\t\t\t\t║");
+        println!("║ -2. Show profiles\t\t\t\t\t\t\t║");
+        println!("║ -1. IDLE\t\t\t\t\t\t\t\t║");
+        println!("║  1. I just want to play the game!\t\t\t\t\t║");
+        println!("║  2. I want to change the current difficulty ({})\t\t\t║", actual_diff.name);
+        println!("║  3. I want to switch my profile.\t\t\t\t\t║");
+        println!("║  4. I want to change my username!\t\t\t\t\t║");
+        println!("║  5. I want to see the ranks.\t\t\t\t\t\t║");
+        println!("║  6. I want to create a new profile!\t\t\t\t\t║");
+        println!("║  7. I want to go back to the main menu!!!\t\t\t\t║");
+        println!("║  8. I want exit this damn thing!!!\t\t\t\t\t║");
+        general_libraries::repeater('╚','═','╝',74);
+        print!("\n--> "); 
 }

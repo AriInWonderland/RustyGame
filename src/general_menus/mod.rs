@@ -7,8 +7,11 @@ pub fn main_menu() -> i32 {
     general_libraries::repeater('╔','═','╗',74); 
     println!("\n║\t\t\t Welcome to \"Rusty Games\"\t\t\t║");
     println!("║\t\t       What would you like to play?\t\t\t║\n║\t\t\t\t\t\t\t\t\t║");
-    println!("║ 1. I want to play \"Guess The Rusty Number\"\t\t\t\t║");
-    println!("║ 2. I want to see \"Guess The Rusty Number\" ranks.\t\t\t║");
+    println!("║ -3. Show difficulties\t\t\t\t\t\t\t║");
+    println!("║ -2. Show profiles\t\t\t\t\t\t\t║");
+    println!("║ -1. IDLE\t\t\t\t\t\t\t\t║");
+    println!("║  1. I want to play \"Guess The Rusty Number\"\t\t\t\t║");
+    println!("║  2. I want to see \"Guess The Rusty Number\" ranks.\t\t\t║");
     println!("║ 11. I want to change my username.\t\t\t\t\t║");
     println!("║ 12. I want to create a new user.\t\t\t\t\t║");
     println!("║ 13. I want to exit the game.\t\t\t\t\t\t║");
