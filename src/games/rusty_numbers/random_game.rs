@@ -1,27 +1,27 @@
 use crate::games::rusty_numbers::diffs::Difficulty;
 use rand::Rng;
 use std::cmp::Ordering;
-use crate::general_libraries;
+use super::menu;
 
 pub fn guess_the_rusty_number(diff: &Difficulty) -> i32{
 
     let mut guess;
     let num = rand::thread_rng().gen_range(diff.minimum ..=diff.maximum);
-    println!("Diff = {:#?}", diff);
-    println!("num = {num}");
+    println!("[DEBUG] Diff = {:#?}", diff);
+    println!("[DEBUG] num = {num}");
+
+    menu::rusty_numbers_explain();
 
     loop{
-        println!("Input your guess...");
-        guess = general_libraries::atoi();
+        guess = menu::input_guess();
         match guess.cmp(&num){
             Ordering::Less => println!("Too small"),
-            Ordering::Greater => println!("Too small"),
+            Ordering::Greater => println!("Too big"),
             Ordering::Equal => {
-                println!("You won!");
+                menu::winner_menu();
                 break;
             },
         }
     }
-
     return -1;
 }
